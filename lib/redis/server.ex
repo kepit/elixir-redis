@@ -64,7 +64,7 @@ defmodule Redis.Server do
     { :reply, res, client }
   end
   
-  def handle_call({command, key, range_start, range_end, limit_start, limit_end, withscores}, _from, client) do
+  def handle_call({command, key, range_start, range_end, limit_start, limit_end}, _from, client) do
     handle_call({command, key, range_start, range_end, limit_start, limit_end, false}, _from, client)
   end 
   
