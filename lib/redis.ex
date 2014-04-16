@@ -70,7 +70,7 @@ defmodule Redis do
     data = [ :zrangebyscore, key, min, max ]
     if is_range(limit), do: data ++ ["LIMIT", Range.first(limit), Range.last(limit)]
     if withscores == true, do: data ++ ["WITHSCORES"]
-    IO.puts inspect list_to_tuple(data)
+    IO.puts inspect limit
     call_server(pid, list_to_tuple(data))
   end
   
