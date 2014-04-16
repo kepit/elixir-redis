@@ -63,6 +63,18 @@ defmodule Redis.Server do
     res = client |> query([cmdstring, key, range_start, range_end])
     { :reply, res, client }
   end
+  
+  def handle_call({command, key, range_start, range_end, limit_start, limit_end, withscores}, _from, client) do
+    handle_call({command, key, range_start, range_end, limit_start, limit_end, false}, _from, client)
+  end 
+  
+  def handle_call({command, key, range_start, range_end, limit_start, limit_end, withscores}, _from, client) do
+    cmdstring = String.upcase(to_string(command))
+    q = [cmdstring, key, range_start, range_end, "LIMIT", limit_start, limit_end]
+    if withscores, do: q = q ++ ["WITHSCORES"]
+    res = client |> query(q)
+    { :reply, res, client }
+  end
 
   def handle_cast({:stop}, client) do
     {:stop, :normal, client}
