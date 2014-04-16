@@ -68,9 +68,8 @@ defmodule Redis do
   
   def zrangebyscore(pid\\nil, key, min, max, limit\\nil, withscores\\false) do
     data = [ :zrangebyscore, key, min, max ]
-    if Range.range?(limit), do: data = data ++ ["LIMIT", Range.first(limit), Range.last(limit)]
-    if withscores == true, do: data = data ++ ["WITHSCORES"]
-    call_server(pid, list_to_tuple(data))
+    if Range.range?(limit), do: data = data ++ [Range.first(limit), Range.last(limit)]
+    call_server(pid, list_to_tuple(data ++ [withscores]))
   end
   
   def incr(pid\\nil, key) do
