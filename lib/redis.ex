@@ -65,7 +65,11 @@ defmodule Redis do
   def zrem(pid\\nil, key, value) do
     call_server(pid, { :zrem, key, value }) |> int_reply
   end
-
+  
+  def zrangebyscore(pid\\nil, key, min, max)  do
+    call_server(pid, { :zrangebyscore, key, min, max })
+  end
+  
   def incr(pid\\nil, key) do
     call_server(pid, { :incr, key }) |> int_reply
   end
