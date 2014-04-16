@@ -67,6 +67,7 @@ defmodule Redis do
   end
   
   def zrangebyscore(pid\\nil, key, min, max, args \\ []) do
+    IO.puts(key)
     data = [ :zrangebyscore, key, min, max ]
     IO.puts inspect data
     if args[:limit] != nil, do: data ++ ["LIMIT", Range.first(args[:limit]), Range.last(args[:limit])]
