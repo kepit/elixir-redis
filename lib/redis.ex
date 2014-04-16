@@ -33,6 +33,10 @@ defmodule Redis do
   def set(pid\\nil, key, value) do
     call_server(pid, { :set, key, value }) |> sts_reply
   end
+  
+  def exists?(pid\\nil, key) do
+    call_server(pid, { :exists, key })
+  end
 
   def hset(pid\\nil, key, field, value) do
     call_server(pid, { :hset, key, field, value }) |> int_reply
